@@ -14,15 +14,20 @@
         include("./header.php");
         ?>
     </nav>
-    <main>
-        <div id="timeDiv"></div><br>
-
-        <input type="time" id="heure">
-        <input type="text" id="alarmText" placeholder="Description">
-        <input type="button" id="confirm" value="Valider">
-        <div id="warning"></div>
-        <div id="alarmList"></div>
-    </main>
+    <h1>Alarme</h1>
+    <div id="timeDiv"></div>
+    <p id="current-time"></p>
+    <form>
+        <label for="time">Heure :</label>
+        <input type="time" id="time" name="time">
+        <br><br>
+        <label for="name">Nom de l'alarme :</label>
+        <input type="text" id="name" name="name">
+        <br><br>
+        <input type="button" value="Ajouter alarme" onclick="addAlarm()">
+    </form>
+    <div id="warning"></div>
+    <div id="alarms"></div>
     <script src="../js/reveil.js"></script>
 </body>
 

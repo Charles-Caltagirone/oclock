@@ -1,8 +1,7 @@
-let timeDiv = document.getElementById("timeDiv");
-let warningDiv = document.getElementById("warning");
-let confirmBtn = document.getElementById("confirm");
+// Définir un tableau pour stocker les alarmes
+let alarms = [];
 let interval;
-// let alarmRegisted;
+let timeDiv = document.getElementById("timeDiv");
 
 function Time() {
   let currentClock = new Date();
@@ -12,11 +11,9 @@ function Time() {
   // let currentTime = hours + ":" + minutes;
   let actualTime = hours + ":" + minutes + ":" + seconds;
   timeDiv.innerHTML = actualTime;
-  return actualTime;
+  interval = setInterval(Time, 1000);
 }
 Time();
-
-// ajouter un zéro si le nombre est < 10
 function checkTime(nombre) {
   if (nombre < 10) {
     nombre = "0" + nombre;
@@ -24,78 +21,95 @@ function checkTime(nombre) {
   return nombre;
 }
 
-confirmBtn.addEventListener("click", () => {
-  affichage();
-});
+// Fonction pour ajouter une alarme
+function addAlarm() {
+  // Obtenir la valeur de l'heure et du nom de l'alarme
+  let timeValue = document.getElementById("time").value;
+  let nameValue = document.getElementById("name").value;
 
-function timeRemaining() {
-  let currentTime = Time();
-  let newP = document.createElement("p");
+  // Ajouter l'alarme au tableau
+  alarms.push({ time: timeValue, name: nameValue });
 
-  // confirm.onclick = function () {
-  console.log("okkk");
-  let alarmList = document.getElementById("alarmList");
-  let heure = document.getElementById("heure");
-  let alarmText = document.getElementById("alarmText");
-  // alarmList.innerHTML = "";
-
-  let confirmAlarm = heure.value;
-  let confirmText = alarmText.value;
-  let calculCurrentDate = new Date(`2000-01-01T${currentTime}`);
-  let calculAlarmDate = new Date(`2000-01-01T${heure.value}`);
-  let timeLeft = Math.abs((calculAlarmDate - calculCurrentDate) / 1000 / 60);
-  let tempsRestant = Math.ceil(timeLeft);
-  // return timeLeft;
+  // Actualiser l'affichage des alarmes
+  displayAlarms();
 }
 
-function affichage(confirmAlarm, confirmText, currentTime, newP) {
-  timeRemaining();
-  // let interval = setInterval(() => {
+// Fonction pour afficher les alarmes
+function displayAlarms() {
+  // Obtenir l'élément HTML où afficher les alarmes
+  let alarmsDiv = document.getElementById("alarms");
 
-  if (confirmAlarm == "") {
-    warningDiv.innerText = "Choisir une heure !";
-  } else if (confirmText == "") {
-    warningDiv.innerText = "Remplir une description !";
-  } else {
-    if (confirmAlarm > currentTime) {
-      alarmRegisted =
-        confirmAlarm +
-        " : " +
-        confirmText +
-        " : A venir. Temps restant : " +
-        timeLeft +
-        " min";
-      newP.innerHTML = alarmRegisted;
-      alarmList.append(newP);
-      // setInterval(affichage);
+  // Effacer le contenu de l'élément
+  alarmsDiv.innerHTML = "";
 
-      // clearInterval(interval);
-      // warningDiv.innerText = "";
-      // interval = setInterval(timeLeft, 1000);
-    } else if (confirmAlarm < currentTime) {
-      warning.innerText = "Choisir une heure postérieure !";
-    } else {
-      newP.innerHTML = "Heure passée";
-      alarmList.append(newP);
-      // warningDiv.innerText = "";
-    }
+  // Afficher l'heure actuelle
+  let now = new Date();
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+  let seconds = now.getSeconds();
+  let currentTimeString = `${hours}:${minutes}:${seconds}`;
+  document.getElementById(
+    "current-time"
+  ).innerHTML = `Heure actuelle : ${currentTimeString}`;
+
+  // Parcourir le tableau d'alarmes et ajouter chaque alarme à l'élément HTML
+  for (let i = 0; i < alarms.length; i++) {
+    let alarm = alarms[i];
+    let alarmTime = new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate(),
+      alarm.time.split(":")[0],
+      alarm.time.split(":")[1]
+    );
+    let timeDiff = alarmTime - now;
+
+    // Calculer le temps restant avant l'alarme
+    let seconds = Math.floor((timeDiff / 1000) % 60);
+    let minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
+    let hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+
+    alarmsDiv.innerHTML += `<p>${alarm.name} : ${alarm.time} (${hours} heures, ${minutes} minutes et ${seconds} secondes restantes)</p>`;
   }
-  // }, 1000);
-  // setInterval(affichage, 1000);
-  // return alarmRegisted;
+  clearInterval(interval);
 }
-// affichage();
-// };
-// clearInterval(interval);
-// confirmAlarm = "";
-// confirmText = "";
-// function afficher() {
-//   confirmBtn.addEventListener("click", affichage());
 
+// Actualiser les alarmes toutes les secondes
+interval = setInterval(displayAlarms, 1000);
+
+// REINTEGRER LES CONDITIONS
+
+// if (timeValue == "") {
+//   warningDiv.innerText = "Choisir une heure !";
+// } else if (nameValue == "") {
+//   warningDiv.innerText = "Remplir une description !";
+// } else {
+//   if (timeValue > now) {
+//     // Parcourir le tableau d'alarmes et ajouter chaque alarme à l'élément HTML
+//     for (let i = 0; i < alarms.length; i++) {
+//       let alarm = alarms[i];
+//       let alarmTime = new Date(
+//         now.getFullYear(),
+//         now.getMonth(),
+//         now.getDate(),
+//         alarm.time.split(":")[0],
+//         alarm.time.split(":")[1]
+//       );
+//       let timeDiff = alarmTime - now;
+
+//       // Calculer le temps restant avant l'alarme
+//       let seconds = Math.floor((timeDiff / 1000) % 60);
+//       let minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
+//       let hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
+
+//       alarmsDiv.innerHTML += `<p>${alarm.name} : ${alarm.time} (${hours} heures, ${minutes} minutes et ${seconds} secondes restantes)</p>`;
+//     }
+//     // warningDiv.innerText = "";
+//   } else if (timeValue < now) {
+//     warning.innerText = "Choisir une heure postérieure !";
+//   } else {
+//     alarmsDiv.innerHTML += "Heure passée";
+//     // alarmList.append(newP);
+//     // warningDiv.innerText = "";
+//   }
 // }
-
-// setInterval(() => {
-//   Time();
-// affichage();
-//   // clearInterval(interval);
-// }, 1000);
