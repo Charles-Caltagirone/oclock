@@ -14,18 +14,16 @@
         include("./header.php");
         ?>
     </nav>
-    <h1>Alarme</h1>
-    <p id="current-time"></p>
+    <h1>Système de réveil</h1>
+    <p>Heure actuelle: <span id="currentTime"></span></p>
     <form>
-        <label for="time">Heure :</label>
+        <label for="time">Heure de l'alarme:</label>
         <input type="time" id="time" name="time">
-        <br><br>
-        <label for="name">Nom de l'alarme :</label>
+        <label for="name">Nom de l'alarme:</label>
         <input type="text" id="name" name="name">
-        <br><br>
-        <input type="button" value="Ajouter alarme" onclick="addAlarm()">
+        <input type="button" value="Ajouter" onclick="addAlarm()">
     </form>
-    <div id="alarms"></div>
+    <ul id="alarmList"></ul>
     <script src="../js/reveil.js"></script>
 </body>
 

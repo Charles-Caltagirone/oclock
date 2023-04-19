@@ -1,25 +1,5 @@
 // Définir un tableau pour stocker les alarmes
 let alarms = [];
-let interval;
-let timeDiv = document.getElementById("timeDiv");
-
-function Time() {
-  let currentClock = new Date();
-  let hours = checkTime(currentClock.getHours());
-  let minutes = checkTime(currentClock.getMinutes());
-  let seconds = checkTime(currentClock.getSeconds());
-  // let currentTime = hours + ":" + minutes;
-  let actualTime = hours + ":" + minutes + ":" + seconds;
-  timeDiv.innerHTML = actualTime;
-  interval = setInterval(Time, 1000);
-}
-Time();
-function checkTime(nombre) {
-  if (nombre < 10) {
-    nombre = "0" + nombre;
-  }
-  return nombre;
-}
 
 // Fonction pour ajouter une alarme
 function addAlarm() {
@@ -42,19 +22,10 @@ function displayAlarms() {
   // Effacer le contenu de l'élément
   alarmsDiv.innerHTML = "";
 
-  // Afficher l'heure actuelle
-  let now = new Date();
-  let hours = now.getHours();
-  let minutes = now.getMinutes();
-  let seconds = now.getSeconds();
-  let currentTimeString = `${hours}:${minutes}:${seconds}`;
-  document.getElementById(
-    "current-time"
-  ).innerHTML = `Heure actuelle : ${currentTimeString}`;
-
   // Parcourir le tableau d'alarmes et ajouter chaque alarme à l'élément HTML
   for (let i = 0; i < alarms.length; i++) {
     let alarm = alarms[i];
+    let now = new Date();
     let alarmTime = new Date(
       now.getFullYear(),
       now.getMonth(),
@@ -63,6 +34,9 @@ function displayAlarms() {
       alarm.time.split(":")[1]
     );
     let timeDiff = alarmTime - now;
+    // console.log(alarmTime);
+    // console.log(now);
+    // console.log(timeDiff);
 
     // Calculer le temps restant avant l'alarme
     let seconds = Math.floor((timeDiff / 1000) % 60);
@@ -71,45 +45,21 @@ function displayAlarms() {
 
     alarmsDiv.innerHTML += `<p>${alarm.name} : ${alarm.time} (${hours} heures, ${minutes} minutes et ${seconds} secondes restantes)</p>`;
   }
-  clearInterval(interval);
 }
 
-// Actualiser les alarmes toutes les secondes
-interval = setInterval(displayAlarms, 1000);
-
-// REINTEGRER LES CONDITIONS
-
-// if (timeValue == "") {
-//   warningDiv.innerText = "Choisir une heure !";
-// } else if (nameValue == "") {
-//   warningDiv.innerText = "Remplir une description !";
-// } else {
-//   if (timeValue > now) {
-//     // Parcourir le tableau d'alarmes et ajouter chaque alarme à l'élément HTML
-//     for (let i = 0; i < alarms.length; i++) {
-//       let alarm = alarms[i];
-//       let alarmTime = new Date(
-//         now.getFullYear(),
-//         now.getMonth(),
-//         now.getDate(),
-//         alarm.time.split(":")[0],
-//         alarm.time.split(":")[1]
-//       );
-//       let timeDiff = alarmTime - now;
-
-//       // Calculer le temps restant avant l'alarme
-//       let seconds = Math.floor((timeDiff / 1000) % 60);
-//       let minutes = Math.floor((timeDiff / (1000 * 60)) % 60);
-//       let hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
-
-//       alarmsDiv.innerHTML += `<p>${alarm.name} : ${alarm.time} (${hours} heures, ${minutes} minutes et ${seconds} secondes restantes)</p>`;
-//     }
-//     // warningDiv.innerText = "";
-//   } else if (timeValue < now) {
-//     warning.innerText = "Choisir une heure postérieure !";
-//   } else {
-//     alarmsDiv.innerHTML += "Heure passée";
-//     // alarmList.append(newP);
-//     // warningDiv.innerText = "";
-//   }
-// }
+// Fonction pour afficher l'heure actuelle
+function displayCurrentTime() {
+  let now = new Date();
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+  let seconds = now.getSeconds();
+  let currentTimeString = `${hours}:${minutes}:${seconds}`;
+  document.getElementById(
+    "current-time"
+    ).innerHTML = `Heure actuelle : ${currentTimeString}`;
+  }
+  displayCurrentTime();
+  
+  // Actualiser l'affichage de l'heure actuelle et des alarmes créées toutes les secondes
+  setInterval(displayCurrentTime, 1000);
+  setInterval(displayAlarms, 1000);
