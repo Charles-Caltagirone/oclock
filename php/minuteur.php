@@ -16,7 +16,7 @@
         ?>
     </nav>
     <form action="">
-        <input type="number" id="selectTimer" />
+        <input type="number" id="selectTimer" placeholder="Choisir"/>
         <input type="button" id="up" value="up" placeholder="" />
         <input type="button" id="down" value="down" placeholder="" />
         <input type="button" id="start" value="start" placeholder="" />
@@ -24,7 +24,6 @@
         <input type="button" id="reset" value="reset" placeholder="" />
     </form>
     <div id="timer">
-        <p id="newTimer">0:00</p>
     </div>
     <script src="../js/minuteur.js"></script>
 </body>
