@@ -23,9 +23,11 @@
         <label for="name">Nom de l'alarme :</label>
         <input type="text" id="name" name="name">
         <br><br>
-        <input type="button" value="Ajouter alarme" onclick="addAlarm()">
+        <input type="button" id="addAlarm" value="Ajouter alarme">
     </form>
-    <div id="alarms"></div>
+    
+    <div id="upcomingAlarms"></div>
+    <div id="passedAlarms"></div>
     <script src="../js/reveil.js"></script>
 </body>
 

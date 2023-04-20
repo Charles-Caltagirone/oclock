@@ -2,7 +2,7 @@
 let alarms = [];
 
 // Fonction pour ajouter une alarme
-function addAlarm() {
+addAlarm.onclick = function newAlarm() {
   // Obtenir la valeur de l'heure et du nom de l'alarme
   let timeValue = document.getElementById("time").value;
   let nameValue = document.getElementById("name").value;
@@ -12,12 +12,13 @@ function addAlarm() {
 
   // Actualiser l'affichage des alarmes
   displayAlarms();
-}
+  // setInterval(displayAlarms);
+};
 
 // Fonction pour afficher les alarmes
 function displayAlarms() {
   // Obtenir l'élément HTML où afficher les alarmes
-  let alarmsDiv = document.getElementById("alarms");
+  let alarmsDiv = document.getElementById("upcomingAlarms");
 
   // Effacer le contenu de l'élément
   alarmsDiv.innerHTML = "";
@@ -44,6 +45,10 @@ function displayAlarms() {
     let hours = Math.floor((timeDiff / (1000 * 60 * 60)) % 24);
 
     alarmsDiv.innerHTML += `<p>${alarm.name} : ${alarm.time} (${hours} heures, ${minutes} minutes et ${seconds} secondes restantes)</p>`;
+
+    if (timeDiff < 0) {
+      alert("BIP BIP");
+    }
   }
 }
 
@@ -56,10 +61,14 @@ function displayCurrentTime() {
   let currentTimeString = `${hours}:${minutes}:${seconds}`;
   document.getElementById(
     "current-time"
-    ).innerHTML = `Heure actuelle : ${currentTimeString}`;
-  }
-  displayCurrentTime();
-  
-  // Actualiser l'affichage de l'heure actuelle et des alarmes créées toutes les secondes
-  setInterval(displayCurrentTime, 1000);
-  setInterval(displayAlarms, 1000);
+  ).innerHTML = `Heure actuelle : ${currentTimeString}`;
+  // setInterval(displayCurrentTime, 1000)
+}
+displayCurrentTime();
+
+// Actualiser l'affichage de l'heure actuelle et des alarmes créées toutes les secondes
+setInterval(function () {
+  displayAlarms(), displayCurrentTime();
+}, 1000);
+// } displayCurrentTime, 1000);
+// setInterval(displayAlarms, 1000);
