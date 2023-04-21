@@ -13,7 +13,7 @@ function addAlarm() {
   // Ajouter l'alarme au tableau
   var alarm = {
     time: timeInput.value,
-    message: messageInput.value
+    message: messageInput.value,
   };
   alarms.push(alarm);
 
@@ -44,30 +44,42 @@ function updateAlarms() {
 
   for (var i = 0; i < pastAlarms.length; i++) {
     var alarmDiv = document.createElement("div");
-    alarmDiv.innerHTML = "<b>Alarme passée à " + pastAlarms[i].time + ":</b> " + pastAlarms[i].message;
+    alarmDiv.innerHTML =
+      "<b>Alarme passée à " +
+      pastAlarms[i].time +
+      ":</b> " +
+      pastAlarms[i].message;
     pastAlarmsDiv.appendChild(alarmDiv);
   }
 
   for (var i = 0; i < futureAlarms.length; i++) {
     var alarmDiv = document.createElement("div");
-    alarmDiv.innerHTML = "<b>Alarme à venir à " + futureAlarms[i].time + ":</b> " + futureAlarms[i].message;
+    alarmDiv.innerHTML =
+      "<b>Alarme à venir à " +
+      futureAlarms[i].time +
+      ":</b> " +
+      futureAlarms[i].message;
     futureAlarmsDiv.appendChild(alarmDiv);
   }
 
   // Actualiser les alarmes à venir
   if (futureAlarms.length > 0) {
-    var nextAlarmTime = new Date(now.toDateString() + " " + futureAlarms[0].time);
+    var nextAlarmTime = new Date(
+      now.toDateString() + " " + futureAlarms[0].time
+    );
     var timeUntilNextAlarm = nextAlarmTime - now;
 
-    setTimeout(function() {
+    setTimeout(function () {
       alert("Alarme: " + futureAlarms[0].message);
       futureAlarms.shift();
-      updateAlarms();
+      // updateAlarms();
     }, timeUntilNextAlarm);
+    // setInterval(updateAlarms, 1000);
   }
 }
 
-setInterval(function() {
+setInterval(function () {
   var now = new Date();
-  document.getElementById("currentTime").innerHTML = "Heure actuelle: " + now.toLocaleTimeString();
+  document.getElementById("currentTime").innerHTML =
+    "Heure actuelle: " + now.toLocaleTimeString();
 }, 1000);

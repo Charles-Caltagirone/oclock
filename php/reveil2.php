@@ -28,7 +28,7 @@
     </form>
     <div id="warning"></div>
     <div id="alarms"></div>
-    <script src="../js/reveil.js"></script>
+    <script src="../js/reveil2.js"></script>
 </body>
 
 </html>
