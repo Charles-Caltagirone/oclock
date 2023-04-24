@@ -1,8 +1,9 @@
-let h1 = document.getElementsByTagName("h1")[0];
-let start = document.getElementById("strt");
-let reset = document.getElementById("rst");
+let timerStart = document.getElementById("timerStart");
+let start = document.getElementById("start");
+let reset = document.getElementById("reset");
 let tourBtn = document.getElementById("tourBtn");
 let tour = document.getElementById("tour");
+let startIcon = document.getElementById("startIcon");
 let sec = 0;
 let min = 0;
 let hrs = 0;
@@ -22,7 +23,7 @@ function incrementationTime() {
 }
 function affichage() {
   incrementationTime();
-  h1.textContent =
+  timerStart.textContent =
     (hrs > 9 ? hrs : "0" + hrs) +
     ":" +
     (min > 9 ? min : "0" + min) +
@@ -38,16 +39,18 @@ start.onclick = function () {
   if (isPause == true) {
     timer();
     isPause = false;
+    startIcon.className = "fa-solid fa-pause";
   } else {
     clearTimeout(defileTime);
     isPause = true;
+    startIcon.className = "fa-solid fa-play";
   }
 };
 
 reset.onclick = function () {
   clearTimeout(defileTime);
   tour.innerHTML = "";
-  h1.textContent = "00:00:00";
+  timerStart.textContent = "00:00:00";
   sec = 0;
   min = 0;
   hrs = 0;
@@ -56,6 +59,6 @@ reset.onclick = function () {
 
 tourBtn.onclick = function () {
   const p = document.createElement("p");
-  p.innerHTML = h1.textContent;
+  p.innerHTML = timerStart.textContent;
   tour.append(p);
 };
