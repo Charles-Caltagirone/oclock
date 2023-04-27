@@ -5,8 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <link rel="stylesheet" href="../css/style.css" /> -->
-    <link rel="stylesheet" href="../css/horloge.css">
+    <link rel="stylesheet" href="../css/style.css">
     <script src="https://kit.fontawesome.com/9a09d189de.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 
@@ -23,7 +22,7 @@
         <div id="timer">
         </div>
         <form action="">
-            <input type="number" id="selectTimer" placeholder="Choisir" />
+            <input type="number" class="inputTimeText" id="selectTimer" placeholder="Choisir" />
             <button type="button" id="up" placeholder=""><i class="fa-solid fa-up-long"></i></button>
             <button type="button" id="down" placeholder=""><i class="fa-solid fa-down-long"></i></button>
             <button type="button" id="start" placeholder=""><i class="fa-solid fa-play"></i></button>

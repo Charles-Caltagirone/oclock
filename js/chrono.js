@@ -3,6 +3,7 @@ let start = document.getElementById("start");
 let reset = document.getElementById("reset");
 let tourBtn = document.getElementById("tourBtn");
 let tour = document.getElementById("tour");
+let contenu = document.getElementById("contenu");
 let startIcon = document.getElementById("startIcon");
 let sec = 0;
 let min = 0;
